@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routes/userRouter.js");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3030;
 const path = require('path');
 
 const jsonParser = express.json();
@@ -12,7 +12,7 @@ app.use("/users", userRouter);
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build/index.html'));
 
-  app.get('*', (req, res) => {
+  app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 }
