@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routes/userRouter.js");
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 5000;
 const path = require('path');
 
 const jsonParser = express.json();
