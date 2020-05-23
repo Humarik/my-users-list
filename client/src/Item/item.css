@@ -1,0 +1,15 @@
+.userItem {
+    background: whitesmoke;
+    color: #112;
+    margin: 5px 7px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px;
+    max-width: 300px;
+    list-style-type: none;
+}
+
+.userItem:hover {
+    transform: scale(1.1);
+}
