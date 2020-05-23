@@ -1,10 +1,10 @@
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-    host: "sql2.freesqldatabase.com",
-    user: "sql2341060",
-    database: "sql2341060",
-    password: "pE6!zN6%",
+    host: "bosziaf2gxbaeepsrtf2-mysql.services.clever-cloud.com",
+    user: "ur5sm2iith67ybq6",
+    database: "bosziaf2gxbaeepsrtf2",
+    password: "puiL7Pk8zjyOhVGQuFe4",
 })
 
 module.exports = class User {
