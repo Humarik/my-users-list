@@ -20,7 +20,7 @@ function Form() {
         });
 
         const user = await response.json();
-        setUsers([...users, user[0]]);
+        setUsers([...users, user]);
 
         form.elements.name.value = '';
         form.elements.age.value = '';

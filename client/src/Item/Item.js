@@ -6,7 +6,7 @@ import './item.css'
 function Item({user}) {
     const { setUsers } = useContext(Context);
 
-    const deleteUser = async (e) => {
+    const removeUser = async (e) => {
         const id = e.target.id
         const response = await fetch(`/users/deleteUser/${id}`,{
             method: 'POST',
@@ -19,7 +19,7 @@ function Item({user}) {
         setUsers(data);
     }
     return(
-        <li title='удалить' onClick={deleteUser} className='userItem' id={user.id}>{`Имя: ${user.name}  Возраст: ${user.age}`}</li>
+        <li title='удалить' onClick={removeUser} className='userItem' id={user._id}>{`Имя: ${user.name}  Возраст: ${user.age}`}</li>
     )
 }
 

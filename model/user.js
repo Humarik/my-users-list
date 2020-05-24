@@ -1,20 +1,38 @@
-const mysql = require("mysql2");
+const mongoose = require('mongoose');
 
-const connection = mysql.createConnection({
-    host: "bosziaf2gxbaeepsrtf2-mysql.services.clever-cloud.com",
-    user: "ur5sm2iith67ybq6",
-    database: "bosziaf2gxbaeepsrtf2",
-    password: "puiL7Pk8zjyOhVGQuFe4",
-})
+mongoose
+    .connect(
+        'mongodb+srv://hurma:378021@cluster-hurma-hd5g5.mongodb.net/hurma?retryWrites=true&w=majority',
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
+    )
+    .then(() => console.log('DB connected'));
+
+const UsersChema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
+    }
+});
+
+const users = mongoose.model('users', UsersChema)
 
 module.exports = class User {
-    async testing() {
-        let data = new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM users", (err, result) => {
-                if (err) return console.log(err);
-                resolve(result);
-            });
-        });
-        return await data;
+    async getUsers() {
+        return await users.find()
+    }
+
+    async createUser(name, age) {
+        return await users.create({ name, age});
+    }
+
+    async removeUser(_id) {
+        return await users.remove({_id})
     }
 }

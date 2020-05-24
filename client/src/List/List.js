@@ -5,9 +5,10 @@ import './list.css'
 
 function List () {
     const { users } = useContext(Context);
+
     return (
         <ul className='userList'>
-            {users.map(user => <Item key={user.id} user={user}></Item>)}
+            {users.map(user => <Item key={user._id} user={user}></Item>)}
         </ul>
     )
 }
