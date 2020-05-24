@@ -1,4 +1,5 @@
 import React,{useContext} from 'react';
+import './form.css'
 import Context from '../context.js'
 
 function Form() {
@@ -7,6 +8,8 @@ function Form() {
     const addUser = async (e) => {
         e.preventDefault();
         const form = document.querySelector('.form');
+
+        if(!form.elements.name.value || !form.elements.age.value) return alert ('Ты ахуел?');
 
         const response = await fetch('/users/createUser', {
             method: 'POST',
@@ -28,13 +31,15 @@ function Form() {
 
     return(
         <form className='form'>
-            <fieldset>
+            <fieldset className='form'>
                 <legend>Добавить пользователя</legend>
                 <label>Имя</label>
-                <input type="text" name="name" />
+                <input type="text" name="name" placeholder='Введите имя' maxLength='15'/>
                 <label>Возраст</label>
-                <input type="number" name="age" />
-                <input type="submit" onClick={addUser} value="Отправить" />
+                <input type="number" name="age" placeholder='Введите возраст' max='120'/>
+                <input className='sbt' type="submit" onClick={addUser} onKeyDown={(event) => {
+                    if(event.key === 'Enter') addUser();
+                }} value="Отправить" />
             </fieldset>
         </form>
     )

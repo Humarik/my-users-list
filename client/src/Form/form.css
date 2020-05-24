@@ -1,0 +1,12 @@
+.sbt {
+    cursor: pointer;
+    height: 21px;
+    box-sizing: border-box;
+    border: 1px solid silver;
+    background: white;
+}
+
+.form label {
+    display: block;
+    margin: 5px 0;
+}
