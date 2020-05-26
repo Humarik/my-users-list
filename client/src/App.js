@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const socket = openSocket('http://localhost:5000');
+    const socket = openSocket('https://my-users-list.herokuapp.com/');
     socket.on('first', function (user) {
       setUsers([...users, user]);
     });
