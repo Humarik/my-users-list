@@ -4,6 +4,8 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
+const server = app.listen(PORT);
+const io = require('socket.io')(server);
 
 const jsonParser = express.json();
 
@@ -18,6 +20,15 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
+io.on('connection', (socket) => {
+  // console.log('a user connected: ' + socket.id);
+  socket.on('first', (user) => {
+    // console.log(user);
+    socket.broadcast.emit('first', user);
+  });
+});
+
+
 // app.use(function (req, res) {
 //   res.status(404).send("Not Found");
 // });
@@ -26,5 +37,3 @@ if(process.env.NODE_ENV === 'production') {
 //   console.error(err.stack);
 //   res.status(500).send('Something broke!');
 // });
-
-app.listen(PORT);

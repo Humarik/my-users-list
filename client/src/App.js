@@ -3,6 +3,7 @@ import Context from './context.js'
 import './app.css'
 import List from './List/List.js'
 import Form from './Form/Form.js'
+import openSocket from 'socket.io-client';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -16,6 +17,13 @@ function App() {
     }
     getResponse();
   }, []);
+
+  useEffect(() => {
+    const socket = openSocket('http://localhost:5000');
+    socket.on('first', function (user) {
+      setUsers([...users, user]);
+    });
+  }, [users])
 
   const openFrom = () => {
     setIsOpen(!isOpen);
