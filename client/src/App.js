@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     async function getResponse() {
-      setSocket(openSocket('http://localhost:5000'));
+      setSocket(openSocket('https://my-users-list.herokuapp.com'));
       const response = await fetch('/users')
       const users = await response.json()
       setUsers(users);
