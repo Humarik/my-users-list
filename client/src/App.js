@@ -19,7 +19,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const socket = openSocket('http://localhost:5000/socket.io/');
+    const socket = openSocket('http://localhost:5000/');
     socket.on('first', function (user) {
       setUsers([...users, user]);
     });
