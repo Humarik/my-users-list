@@ -21,7 +21,7 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 io.on('connection', (socket) => {
-  // console.log('a user connected: ' + socket.id);
+  console.log('a user connected: ' + socket.id);
   socket.on('first', (user) => {
     // console.log(user);
     socket.broadcast.emit('first', user);

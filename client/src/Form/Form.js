@@ -1,10 +1,10 @@
 import React,{useContext} from 'react';
 import './form.css'
 import Context from '../context.js'
-import openSocket from 'socket.io-client';
+// import openSocket from 'socket.io-client';
 
 function Form() {
-    const { users, setUsers } = useContext(Context);
+    const { users, setUsers, socket } = useContext(Context);
 
     const addUser = async (e) => {
         e.preventDefault();
@@ -12,7 +12,7 @@ function Form() {
 
         if(!form.elements.name.value || !form.elements.age.value) return alert ('Ты ахуел?');
 
-        const socket = openSocket('http://localhost:5000');
+        // const socket = openSocket('http://localhost:5000');
 
         const response = await fetch('/users/createUser', {
             method: 'POST',
