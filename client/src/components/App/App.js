@@ -1,43 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import Context from './context.js'
+import Requests from '../../requests/requests.js'
+import Context from '../../context.js'
 import './app.css'
-import List from './List/List.js'
-import Form from './Form/Form.js'
-import openSocket from 'socket.io-client';
+import List from '../List/List.js'
+import Form from '../Form/Form.js'
+
+const requests = new Requests();
 
 function App() {
   const [users, setUsers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [socket, setSocket] = useState({});
-  // let socket;
 
   useEffect(() => {
-    async function getResponse() {
-      setSocket(openSocket('https://my-users-list.herokuapp.com'));
-      const response = await fetch('/users')
-      const users = await response.json()
-      setUsers(users);
+    setSocket(requests.connectionSocket('https://my-users-list.herokuapp.com'));
+    // setSocket(requests.connectionSocket('http://localhost:5000'));
+    async function fetchData() {
+      const response = await requests.getRequest('/users');
+      setUsers(response);
     }
-    getResponse();
+    fetchData();
   }, []);
 
   useEffect(() => {
-    // console.log(socket)
     if(!socket.on) return
-    // const socket = openSocket('http://localhost:5000/');
-    socket.on('first', function (user) {
-      setUsers([...users, user]);
-      console.log(user);
-    });
-  }, [users])
+    socket.on('createUser', user => setUsers([...users, user]));
+    socket.on('removeUser', users => setUsers(users));
+  }, [users]);
 
-  const openFrom = () => {
-    setIsOpen(!isOpen);
-  }
+  const openFrom = () => setIsOpen(!isOpen);
 
   return (
     <Context.Provider
-    value={{ users, setUsers, socket }}
+      value={{ users, setUsers, socket }}
     >
       <div className='main'>
         <h2>Список пользователей</h2>

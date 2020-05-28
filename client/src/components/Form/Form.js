@@ -1,7 +1,9 @@
 import React,{useContext} from 'react';
 import './form.css'
-import Context from '../context.js'
-// import openSocket from 'socket.io-client';
+import Context from '../../context.js'
+import Requests from '../../requests/requests.js'
+
+const requests = new Requests();
 
 function Form() {
     const { users, setUsers, socket } = useContext(Context);
@@ -9,29 +11,28 @@ function Form() {
     const addUser = async (e) => {
         e.preventDefault();
         const form = document.querySelector('.form');
+        let name = form.elements.name,
+        age = form.elements.age;
 
-        if(!form.elements.name.value || !form.elements.age.value) return alert ('Ты ахуел?');
+        if(!name.value || !age.value) return alert ('Ты ахуел?');
 
-        // const socket = openSocket('http://localhost:5000');
-
-        const response = await fetch('/users/createUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: form.elements.name.value,
-                age: form.elements.age.value
-            })
-        });
+        const response = await requests.postRequest(
+            '/users/createUser',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name: name.value, age: age.value})
+            }
+        );
 
         const user = await response.json();
         setUsers([...users, user]);
+        socket.emit('createUser', user);
 
-        socket.emit('first', user);
-
-        form.elements.name.value = '';
-        form.elements.age.value = '';
+        name.value = '';
+        age.value = '';
     }
 
     return(

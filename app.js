@@ -21,10 +21,11 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 io.on('connection', (socket) => {
-  console.log('a user connected: ' + socket.id);
-  socket.on('first', (user) => {
-    // console.log(user);
-    socket.broadcast.emit('first', user);
+  socket.on('createUser', (user) => {
+    socket.broadcast.emit('createUser', user);
+  });
+  socket.on('removeUser', (users) => {
+    socket.broadcast.emit('removeUser', users);
   });
 });
 

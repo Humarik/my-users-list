@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import Context from '../context.js'
+import Context from '../../context.js'
 import Item from '../Item/Item.js'
 import './list.css'
 
